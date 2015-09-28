@@ -7,6 +7,12 @@ counts_eu_all <- counts_eu %>%
   dplyr::summarise(death_count=sum(death_count),
                    population_count=sum(population_count), n_countries = n_distinct(country))
 
+# Would the above code not be faster to use data.table? Probably doesnt matter, doubt its large enough to matter Eg:
+# require(data.table)
+# dt <- data.table(counts_eu)
+# counts_eu_all <- dt[, list(death_count = sum(death_count), population_count=sum(population_count), n_countries = n_distinct(country)),
+#                     by = c("year", "age", "sex")]
+
 # 9) rates for all of Europe
 
 rates_eu_all <- counts_eu_all  %>% mutate(death_rate_europe=death_count/population_count)
